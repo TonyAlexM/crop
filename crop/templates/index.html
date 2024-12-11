@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Crop Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="N">Nitrogen (N):</label>
+            <input type="text" id="N" name="N" required><br><br>
+
+            <label for="P">Phosphorus (P):</label>
+            <input type="text" id="P" name="P" required><br><br>
+
+            <label for="K">Potassium (K):</label>
+            <input type="text" id="K" name="K" required><br><br>
+
+            <label for="temperature">Temperature:</label>
+            <input type="text" id="temperature" name="temperature" required><br><br>
+
+            <label for="humidity">Humidity:</label>
+            <input type="text" id="humidity" name="humidity" required><br><br>
+
+            <label for="ph">pH:</label>
+            <input type="text" id="ph" name="ph" required><br><br>
+
+            <label for="rainfall">Rainfall:</label>
+            <input type="text" id="rainfall" name="rainfall" required><br><br>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if crops %}
+        <div class="results">
+            <h2>Top 5 Predicted Crops:</h2>
+            <div class="crops-container">
+                {% for crop in crops %}
+                    <div class="crop-card">
+                        <h3>{{ crop.name }}</h3>
+                        <img src="{{ url_for('static', filename=crop.image) }}" alt="{{ crop.name }}">
+                        <p>{{ crop.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</html>
